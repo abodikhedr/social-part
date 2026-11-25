@@ -1,0 +1,39 @@
+import crypto, { randomUUID } from "node:crypto"
+import { ENCRYPTION_KEYS } from "../../config/config.service.js";
+import { AppError } from "../utils/globalErrorHandling.js";
+
+const ENCRYPTION_KEY = Buffer.from(ENCRYPTION_KEYS)
+const IV_LENGTH = 16; 
+console.log(ENCRYPTION_KEY.length);
+
+export function Encrypt(plainText:string) {
+    const iv = crypto.randomBytes(IV_LENGTH);
+
+    const cipher = crypto.createCipheriv('aes-256-cbc', ENCRYPTION_KEY, iv);  
+
+    let encrypted = cipher.update(plainText, 'utf8', 'hex');
+
+    encrypted += cipher.final('hex');
+
+    return iv.toString('hex') + ':' + encrypted;
+}
+
+
+export function decrypt(text:string) {
+
+    const [ivHex, encryptedText] = text.split(':');
+    if (!ivHex || !encryptedText) {
+        throw new AppError("invalid encrypted text",400)
+    }
+    
+    const iv = Buffer.from(ivHex, 'hex');    
+
+    const decipher = crypto.createDecipheriv('aes-256-cbc', ENCRYPTION_KEY , iv);
+    
+    let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
+
+    decrypted += decipher.final('utf8');
+
+    return decrypted;
+}
+

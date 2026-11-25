@@ -1,0 +1,1 @@
+{"version":3,"file":"multer.cloud.d.ts","sourceRoot":"","sources":["../../../src/common/middleware/multer.cloud.ts"],"names":[],"mappings":"AAAA,OAAO,MAAM,MAAM,QAAQ,CAAC;AAC5B,OAAO,EAAe,SAAS,EAAE,MAAM,wBAAwB,CAAC;AAMhE,eAAO,MAAM,YAAY,gCAGtB;IACC,WAAW,CAAC,EAAE,MAAM,EAAE,CAAC;IACvB,UAAU,EAAE,SAAS,CAAA;CACxB,kBAqBA,CAAA"}
